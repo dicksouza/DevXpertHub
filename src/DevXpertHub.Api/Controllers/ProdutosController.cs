@@ -156,6 +156,11 @@ public class ProdutosController(IProdutoService produtoService) : ControllerBase
             return BadRequest(Problem(title: "Erro na requisição", detail: "IDs de produto incompatíveis.", statusCode: StatusCodes.Status400BadRequest));
         }
 
+        if (produtoModel.Categoria?.Id != produtoModel.CategoriaId)
+        {
+            return BadRequest(Problem(title: "Erro na requisição", detail: "IDs de categoria incompatíveis.", statusCode: StatusCodes.Status400BadRequest));
+        }
+
         try
         {
             var vendedorIdLogado = ObterIdDoUsuarioLogado();
