@@ -42,13 +42,13 @@ O projeto consiste em:
 A estrutura do projeto é organizada da seguinte forma:
 
 - src/
-  - Data                        - Armazenamento do banco de dados SQLite, quando em ambiente de desenvolvimento
-  - DevXpertHub.Core/           - Camada de Core - DTOs, Interfaces e Mappers
-  - DevXpertHub.Domain/         - Camada de Domínio - Entidades de domínio e Interfaces de Repositório
-  - DevXpertHub.Services/       - Camada de Serviços da Aplicação - Orquestração e Regras de Negócio
-  - DevXpertHub.Infrastructure/ - Acesso a Dados - Arquivos de configurações do Entity Framework Core, Migrations e Repositórios
-  - DevXpertHub.Api/            - Projeto da API RESTful - Controllers, ViewModels, JwtSettings e Transformers
-  - DevXpertHub.Web/            - Projeto da Aplicação MVC - Controllers, Views, ViewModels, Extensions e Mappers
+  - DevXpertHub.Core/               - Camada de Core - DTOs, Interfaces e Mappers
+  - DevXpertHub.Domain/             - Camada de Domínio - Entidades de domínio e Interfaces de Repositório
+  - DevXpertHub.Services/           - Camada de Serviços da Aplicação - Orquestração e Regras de Negócio
+  - DevXpertHub.Infrastructure/     - Acesso a Dados - Arquivos de configurações do Entity Framework Core, Migrations e Repositórios
+  - DevXpertHub.Infrastructure/Data - Armazenamento do banco de dados SQLite, quando em ambiente de desenvolvimento
+  - DevXpertHub.Api/                - Projeto da API RESTful - Controllers, ViewModels, JwtSettings e Transformers
+  - DevXpertHub.Web/                - Projeto da Aplicação MVC - Controllers, Views, ViewModels, Extensions e Mappers
 
 - README.md                     - Arquivo de Documentação do Projeto
 - FEEDBACK.md                   - Arquivo para Consolidação dos Feedbacks do instrutor
