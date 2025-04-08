@@ -77,15 +77,33 @@ A estrutura do projeto é organizada da seguinte forma:
    - `cd DevXpertHub`
 
 2. **Configuração do Banco de Dados:**
-   - No arquivo `appsettings.Development.json` em ambos os projetos DevXpertHub.Api e DevXpertHub.Web, configure a string de conexão do SQL Server para o seu ambiente.
-   - Execute as migrações do Entity Framework Core a partir da pasta raiz da solução ou do projeto DevXpertHub.Infrastructure:
+Durante a execução do projeto em ambiente de desenvolvimento, o banco de dados será criado automaticamente, bem como a pasta `Data`, necessária para o funcionamento local com SQLite.
 
-      ```bash
-      dotnet ef database update -p src/DevXpertHub.Infrastructure -s src/DevXpertHub.Api
-      # ou
-      dotnet ef database update -p src/DevXpertHub.Infrastructure -s src/DevXpertHub.Web
+#### Ambiente de Desenvolvimento
 
-   - Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
+O projeto utiliza **SQLite** no ambiente de desenvolvimento. A configuração da string de conexão está definida no arquivo `appsettings.Development.json` dos projetos `DevXpertHub.Api` e `DevXpertHub.Web`. Por padrão, o banco será salvo na pasta:
+`src/DevXpertHub.Infrastructure/Data/DevXpertHub.db`.
+
+Essa pasta será criada automaticamente ao executar a aplicação.
+
+#### Execução das Migrações
+
+**Não é necessário executar comandos manuais** para criar o banco ou aplicar migrações em ambiente de desenvolvimento. Ao iniciar a aplicação (`DevXpertHub.Api` ou `DevXpertHub.Web`), as migrações pendentes são aplicadas automaticamente e dados iniciais (categorias e perfis de usuário) são inseridos no banco.
+
+> 💡 Essa lógica é aplicada apenas nos ambientes: `Development`, `Docker` e `Staging`.
+
+#### Ambiente de Produção
+
+Em produção, o projeto utiliza **SQL Server**. Para configurar, altere a string de conexão no arquivo `appsettings.Production.json` com os dados do seu ambiente.
+
+Caso deseje aplicar as migrações manualmente, utilize um dos comandos abaixo a partir da raiz da solução:
+
+```bash
+dotnet ef database update -p src/DevXpertHub.Infrastructure -s src/DevXpertHub.Api
+# ou
+dotnet ef database update -p src/DevXpertHub.Infrastructure -s src/DevXpertHub.Web
+
+```` 
 
 3. **Executar a Aplicação MVC:**
 
