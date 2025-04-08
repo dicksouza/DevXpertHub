@@ -1,16 +1,27 @@
 ﻿using DevXpertHub.Core.Dtos;
 using DevXpertHub.Core.Interfaces;
 using DevXpertHub.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace DevXpertHub.Web.Controllers;
 
 /// <summary>
 /// Controller responsável por gerenciar as operações relacionadas a categorias no sistema web.
 /// </summary>
+[Authorize]
 public class CategoriasController(ICategoriaService categoriaService) : Controller
 {
     private readonly ICategoriaService _categoriaService = categoriaService;
+
+    // Executado antes de cada ação do controlador.
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {
+        TempData["ErrorMessage"] = null;
+        TempData["SuccessMessage"] = null;
+        base.OnActionExecuting(context);
+    }
 
     #region Index
 
@@ -19,8 +30,10 @@ public class CategoriasController(ICategoriaService categoriaService) : Controll
     /// </summary>
     /// <returns>A view com a lista de categorias.</returns>
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
+        //TempData["ErrorMessage"] = null;
         try
         {
             var categoriasDto = await _categoriaService.ObterTodasAsync();
@@ -51,6 +64,7 @@ public class CategoriasController(ICategoriaService categoriaService) : Controll
     [HttpGet]
     public IActionResult Create()
     {
+        //TempData["ErrorMessage"] = null;
         return View();
     }
 
@@ -77,6 +91,7 @@ public class CategoriasController(ICategoriaService categoriaService) : Controll
                 // Chama o serviço para adicionar a nova categoria.
                 await _categoriaService.AdicionarAsync(categoriaDto);
                 // Em caso de sucesso, redireciona para a página de índice para exibir a lista atualizada.
+                TempData["SuccessMessage"] = "Categoria cadastrada com sucesso.";
                 return RedirectToAction(nameof(Index));
             }
             catch (ArgumentException ex)
@@ -106,6 +121,7 @@ public class CategoriasController(ICategoriaService categoriaService) : Controll
     [HttpGet]
     public async Task<IActionResult> EditAsync(int id)
     {
+        //TempData["ErrorMessage"] = null;
         try
         {
             // Chama o serviço para obter a categoria pelo ID.
@@ -150,6 +166,7 @@ public class CategoriasController(ICategoriaService categoriaService) : Controll
         // Verifica se o ID da rota corresponde ao ID no ViewModel para evitar manipulação.
         if (id != categoriaViewModel.Id)
         {
+            TempData["ErrorMessage"] = "O ID da categoria não corresponde ao esperado.";
             return BadRequest();
         }
 
@@ -167,6 +184,7 @@ public class CategoriasController(ICategoriaService categoriaService) : Controll
                 // Chama o serviço para atualizar a categoria.
                 await _categoriaService.AtualizarAsync(categoriaDto);
                 // Em caso de sucesso, redireciona para o índice.
+                TempData["SuccessMessage"] = "Categoria atualizada com sucesso.";
                 return RedirectToAction(nameof(Index));
             }
             catch (ArgumentException ex)
@@ -201,6 +219,7 @@ public class CategoriasController(ICategoriaService categoriaService) : Controll
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
+        //TempData["ErrorMessage"] = null;
         try
         {
             // Obtém a categoria pelo ID.

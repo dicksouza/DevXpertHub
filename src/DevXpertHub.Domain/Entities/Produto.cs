@@ -80,7 +80,7 @@ public class Produto
     /// Construtor protegido sem parâmetros para uso por Entity Framework ou outros ORMs.
     /// Inicializa as propriedades com valores padrão.
     /// </summary>
-    protected Produto() : this(default, string.Empty, string.Empty, default, default, default, new Categoria(default, string.Empty, string.Empty), default, string.Empty) { }
+    protected Produto() : this(default, string.Empty, string.Empty, default, default, default, new Categoria(string.Empty, string.Empty, default), default, string.Empty) { }
 
     /// <summary>
     /// Valida se o nome do produto não é nulo ou vazio.

@@ -6,7 +6,7 @@
 /// <param name="id">O identificador único da categoria.</param>
 /// <param name="nome">O nome da categoria.</param>
 /// <param name="descricao">A descrição da categoria.</param>
-public class Categoria(int id, string nome, string descricao)
+public class Categoria(string nome, string descricao, int id = 0)
 {
     /// <summary>
     /// Obtém o identificador único da categoria.

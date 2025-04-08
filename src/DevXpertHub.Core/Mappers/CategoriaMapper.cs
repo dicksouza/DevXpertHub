@@ -18,9 +18,9 @@ public static class CategoriaMapper
     {
         return new Categoria
         (
-            model.Id,
             model.Nome,
-            model.Descricao
+            model.Descricao,
+            model.Id
         );
     }
 

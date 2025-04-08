@@ -1,3 +1,4 @@
+using DevXpertHub.Infrastructure.DataInitialization;
 using DevXpertHub.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuração do Banco de Dados
 builder.Services.AddDatabaseConfiguration(builder.Configuration,
                                           builder.Environment.IsDevelopment());
+
+// Injeção de Dependências do Identity
+builder.Services.AddIdentityInjection();
 
 // Injeção de Dependências
 builder.Services.AddDependencyInjection();
@@ -24,18 +28,29 @@ app.UseLocalizationConfiguration();
 // Configuração do Ambiente
 if (!app.Environment.IsDevelopment())
 {
+    app.UseMigrationsEndPoint();
+    DatabaseInitializer.InitializeDatabase(app);
+}
+else
+{
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthorization();
 
-// Mapeamento das Rotas
-app.MapDefaultRoutes();
+app.MapStaticAssets();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}")
+    .WithStaticAssets();
+
+app.MapRazorPages()
+   .WithStaticAssets();
 
 app.Run();

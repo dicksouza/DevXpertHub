@@ -2,7 +2,9 @@
 using DevXpertHub.Core.Interfaces;
 using DevXpertHub.Web.Mappers;
 using DevXpertHub.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
 
 namespace DevXpertHub.Web.Controllers;
@@ -10,9 +12,18 @@ namespace DevXpertHub.Web.Controllers;
 /// <summary>
 /// Controller responsável por gerenciar as operações relacionadas a produtos no sistema web.
 /// </summary>
+[Authorize]
 public class ProdutosController(IProdutoService produtoService) : Controller
 {
     private readonly IProdutoService _produtoService = produtoService;
+
+    // Executado antes de cada ação do controlador.
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {
+        TempData["ErrorMessage"] = null;
+        TempData["SuccessMessage"] = null;
+        base.OnActionExecuting(context);
+    }
 
     #region Index
 
@@ -21,14 +32,33 @@ public class ProdutosController(IProdutoService produtoService) : Controller
     /// </summary>
     /// <returns>A view com a lista de produtos.</returns>
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
+        TempData["ErrorMessage"] = null;
         try
         {
-            // Chama o serviço para obter todos os produtos.
-            var produtos = await _produtoService.ObterTodosAsync();
-            // Mapeia a lista de DTOs para uma lista de ViewModels utilizando o mapper.
-            var produtosViewModel = produtos.Select(ProdutoMapper.ToViewModel).ToArray();
+            List<ProdutoViewModel> produtosViewModel;
+            List<ProdutoApplicationModel> produtos;
+
+            // Verifica se o usuário está logado.
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                // Obtém o ID do vendedor logado.
+                var vendedorIdLogado = ObterVendedorIdDoUsuarioLogado();
+                // Chama o serviço para obter todos os produtos.
+                produtos = await _produtoService.ObterTodosPorVendedorAsync(vendedorIdLogado);
+                // Mapeia a lista de DTOs para uma lista de ViewModels utilizando o mapper.
+                produtosViewModel = produtos.Select(ProdutoMapper.ToViewModel).ToList();
+                return View(produtosViewModel);
+            }
+            else
+            {
+                // Chama o serviço para obter todos os produtos.
+                produtos = await _produtoService.ObterTodosAsync();
+                // Mapeia a lista de DTOs para uma lista de ViewModels utilizando o mapper.
+                produtosViewModel = produtos.Select(ProdutoMapper.ToViewModel).ToList();
+            }
             return View(produtosViewModel);
         }
         catch (Exception ex)
@@ -50,6 +80,7 @@ public class ProdutosController(IProdutoService produtoService) : Controller
     [HttpGet]
     public IActionResult Create()
     {
+        TempData["ErrorMessage"] = null;
         return View();
     }
 
@@ -104,6 +135,7 @@ public class ProdutosController(IProdutoService produtoService) : Controller
     [HttpGet]
     public async Task<IActionResult> EditAsync(int id)
     {
+        TempData["ErrorMessage"] = null;
         try
         {
             // Chama o serviço para obter o produto pelo ID.
@@ -143,6 +175,7 @@ public class ProdutosController(IProdutoService produtoService) : Controller
         // Verifica se o ID da rota corresponde ao ID no ViewModel.
         if (id != produtoViewModel.Id)
         {
+            TempData["ErrorMessage"] = "O ID do produto não corresponde ao esperado.";
             return BadRequest();
         }
 
@@ -215,6 +248,7 @@ public class ProdutosController(IProdutoService produtoService) : Controller
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
+        TempData["ErrorMessage"] = null;
         try
         {
             // Chama o serviço para obter o produto pelo ID.

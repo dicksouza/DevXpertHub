@@ -15,7 +15,7 @@ public static class DeveloperEnvironmentExtensions
         {
             c.SwaggerEndpoint("/openapi/v1.json", "DevXpertHub API v1");
         });
-
+        //DatabaseInitializer.InitializeDatabase(app);
         return app;
     }
 }

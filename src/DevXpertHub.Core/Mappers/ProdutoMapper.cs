@@ -25,9 +25,9 @@ public static class ProdutoMapper
         }
 
         Categoria categoriaDominio = new Categoria(
-            model.Categoria.Id,
             model.Categoria.Nome,
-            model.Categoria.Descricao
+            model.Categoria.Descricao,
+                     model.Categoria.Id
         );
 
         return new Produto(

@@ -28,6 +28,8 @@ public static class DatabaseConfigurationExtensions
                 options.UseSqlServer(connectionString), ServiceLifetime.Scoped);
         }
 
+        services.AddDatabaseDeveloperPageExceptionFilter();
+
         return services;
     }
 }
