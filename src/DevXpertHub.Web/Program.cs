@@ -1,4 +1,3 @@
-using DevXpertHub.Infrastructure.DataInitialization;
 using DevXpertHub.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,10 +25,10 @@ var app = builder.Build();
 app.UseLocalizationConfiguration();
 
 // Configuração do Ambiente
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
-    DatabaseInitializer.InitializeDatabase(app);
+    app.UseDbMigrationHelper();
 }
 else
 {

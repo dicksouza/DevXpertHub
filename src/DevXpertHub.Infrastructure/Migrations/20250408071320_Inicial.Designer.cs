@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevXpertHub.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250406170238_Identity")]
-    partial class Identity
+    [Migration("20250408071320_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,13 +28,18 @@ namespace DevXpertHub.Infrastructure.Migrations
 
                     b.Property<string>("Descricao")
                         .IsRequired()
+                        .HasMaxLength(1000)
                         .HasColumnType("VARCHAR(500)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
+                        .HasMaxLength(1000)
                         .HasColumnType("VARCHAR(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Nome")
+                        .IsUnique();
 
                     b.ToTable("Categorias");
                 });
@@ -50,6 +55,7 @@ namespace DevXpertHub.Infrastructure.Migrations
 
                     b.Property<string>("Descricao")
                         .IsRequired()
+                        .HasMaxLength(1000)
                         .HasColumnType("VARCHAR(1000)");
 
                     b.Property<int>("Estoque")
@@ -57,10 +63,12 @@ namespace DevXpertHub.Infrastructure.Migrations
 
                     b.Property<string>("Imagem")
                         .IsRequired()
+                        .HasMaxLength(1000)
                         .HasColumnType("VARCHAR(200)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
+                        .HasMaxLength(1000)
                         .HasColumnType("VARCHAR(200)");
 
                     b.Property<decimal>("Preco")
@@ -79,10 +87,12 @@ namespace DevXpertHub.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -109,13 +119,16 @@ namespace DevXpertHub.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -128,6 +141,7 @@ namespace DevXpertHub.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("AccessFailedCount")
@@ -135,6 +149,7 @@ namespace DevXpertHub.Infrastructure.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -159,15 +174,18 @@ namespace DevXpertHub.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SecurityStamp")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -196,13 +214,16 @@ namespace DevXpertHub.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -215,16 +236,20 @@ namespace DevXpertHub.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.HasKey("LoginProvider", "ProviderKey");
@@ -237,9 +262,11 @@ namespace DevXpertHub.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RoleId")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "RoleId");
@@ -252,15 +279,19 @@ namespace DevXpertHub.Infrastructure.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
+                        .HasMaxLength(1000)
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "LoginProvider", "Name");

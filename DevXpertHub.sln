@@ -26,9 +26,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-Presentation", "04-Presentation", "{53207346-6D91-43A5-8B7E-7EB4562C1A95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{954C46DF-6D81-434E-A306-BDA8B2E90AAB}"
-	ProjectSection(SolutionItems) = preProject
-		src\Data\DevXpertHub.db = src\Data\DevXpertHub.db
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

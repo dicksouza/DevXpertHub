@@ -20,9 +20,11 @@ public class CategoriaConfiguration : IEntityTypeConfiguration<Categoria>
         // Configura a chave primária da tabela Categoria.
         builder.HasKey(c => c.Id);
 
+        // Configura uma chave única para a coluna Nome.
+        builder.HasIndex(c => c.Nome).IsUnique();
+
         // Configura a propriedade Id para ser gerada automaticamente pelo banco de dados.
-        builder.Property(e => e.Id)
-            .ValueGeneratedOnAdd();
+        builder.Property(e => e.Id).ValueGeneratedOnAdd();
 
         // Configura a propriedade Nome:
         builder.Property(c => c.Nome)
