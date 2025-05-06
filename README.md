@@ -43,8 +43,8 @@ A estrutura do projeto é organizada da seguinte forma:
 
 - src/
   - DevXpertHub.Core/               - Camada de Core - DTOs, Interfaces e Mappers
-  - DevXpertHub.Domain/             - Camada de Domínio - Entidades de domínio e Interfaces de Repositório
-  - DevXpertHub.Services/           - Camada de Serviços da Aplicação - Orquestração e Regras de Negócio
+                                    - Entidades de domínio e Interfaces de Repositório
+                                    - Orquestração e Regras de Negócio
   - DevXpertHub.Infrastructure/     - Acesso a Dados - Arquivos de configurações do Entity Framework Core, Migrations e Repositórios
   - DevXpertHub.Infrastructure/Data - Armazenamento do banco de dados SQLite, quando em ambiente de desenvolvimento
   - DevXpertHub.Api/                - Projeto da API RESTful - Controllers, ViewModels, JwtSettings e Transformers
@@ -78,6 +78,9 @@ A estrutura do projeto é organizada da seguinte forma:
 
 2. **Configuração do Banco de Dados:**
 Durante a execução do projeto em ambiente de desenvolvimento, o banco de dados será criado automaticamente, bem como a pasta `Data`, necessária para o funcionamento local com SQLite.
+Após criar o banco de dados em desenvolvimento, algumas tabelas são populadas automaticamente com dados de exemplo.
+O usuário padrão criado para administrar as categorias e produtos é o admin@devxperthub.com e a senha Admin@123.
+Opcionalmente pode ser criado outros usuários, como Consumidor ou Fornecedor.
 
 #### Ambiente de Desenvolvimento
 
