@@ -1,0 +1,143 @@
+﻿@model IEnumerable<DevXpertHub.Web.Models.ProdutoViewModel>
+
+@{
+    ViewBag.Title = "Galeria de Produtos";
+}
+
+<!-- Breadcrumb -->
+<nav class="container py-0 my-lg-2" aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+            <a href="/"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+        </li>
+    </ol>
+</nav>
+<hr class="container" />
+<!-- Título e Filtros -->
+<section class="container d-sm-flex align-items-center justify-content-between mb-1 mb-lg-1">
+    <div class="d-flex align-items-center justify-content-center" style="height: 70px;">
+        <h1 class="text-center m-0">@ViewData["Title"]</h1>
+    </div>
+    <select id="categoriaDropdown" name="categoria" class="form-select" style="width: 240px;">
+        @{
+            var categoriaSelecionada = ViewBag.CategoriaSelecionada as string;
+        }
+        <option value="0" selected="@(categoriaSelecionada == null ? "selected" : null)">Todas as Categorias</option>
+        @foreach (var categoria in ViewBag.Categorias)
+        {
+            var isSelected = categoriaSelecionada == categoria.Id ? "selected" : null;
+            <option value="@categoria.Id" selected="@isSelected">
+                @categoria.Nome
+            </option>
+        }
+    </select>
+</section>
+<hr class="container"/>
+<br />
+
+<!-- Listagem de Produtos -->
+<section class="container pb-2 pb-lg-3">
+    @{
+        var index = 0;
+    }
+    @foreach (var produto in Model)
+    {
+        // Alterna o layout para itens pares e ímpares.
+        var isEven = index % 2 == 0;
+        <div class="row pb-5 mb-md-4 mb-lg-5">
+            @if (isEven)
+            {
+                <!-- Layout: Imagem à esquerda, texto à direita -->
+                <div class="rellax col-md-6 d-flex align-items-center pb-1 mb-3 pb-md-0 mb-md-0"
+                     data-rellax-percentage="0.5" data-rellax-speed="0.8" data-disable-parallax-down="md">
+                    <a aria-label="Link do Produto"
+                       asp-area=""
+                       asp-controller="Produtos"
+                       asp-action="Details"
+                       asp-route-produtoid="@produto.Id">
+                        <!-- Imagem do produto -->
+                        <img src="@Url.Content(produto.Imagem)" class="rounded-3" width="600" height="360" style="object-fit: cover; width: 80%; height: 80%;" alt="@produto.Nome" />
+                    </a>
+                </div>
+                <div class="rellax col-md-6"
+                     data-rellax-percentage="0.5" data-rellax-speed="-0.6" data-disable-parallax-down="md">
+                    <div class="ps-md-4 ms-md-2">
+                        <div class="fs-sm text-muted mb-1">Vendido por: @produto.Fornecedor.Nome</div>
+                        <h2 class="h3">@produto.Nome</h2>
+                        <a href="#" class="d-table badge bg-faded-primary text-primary fs-sm mb-3">
+                            @produto.Categoria?.Nome
+                        </a>
+                        <p class="d-md-none d-lg-block pb-3 mb-2 mb-md-3 align-items-center align-content-center">
+                            @produto.Descricao
+                        </p>
+                        <p class="fs-lg fw-semibold text-primary mb-0 m-lg-2 align-items-center align-content-center">
+                            @produto.Preco.ToString("C")
+                        </p>
+                        <a class="btn btn-outline-primary m-0" style="width: 160px;" aria-label="Link do Produto"
+                           asp-area=""
+                           asp-controller="Produtos"
+                           asp-action="Details"
+                           asp-route-produtoid="@produto.Id">
+                            Ver mais
+                        </a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <!-- Layout: Texto à esquerda, imagem à direita -->
+                <div class="rellax col-md-6 d-flex align-items-center order-md-2 pb-1 mb-3 pb-md-0 mb-md-0"
+                     data-rellax-percentage="0.5" data-rellax-speed="0.8" data-disable-parallax-down="md">
+                    <a class="float-md-end"
+                       aria-label="Link do Produto"
+                       asp-area=""
+                       asp-controller="Produtos"
+                       asp-action="Details"
+                       asp-route-produtoid="@produto.Id">
+                        <!-- Imagem do produto -->
+                        <img src="@Url.Content(produto.Imagem)" class="rounded-3" width="600" height="360" style="object-fit: cover; width: 80%; height: 80%;" alt="@produto.Nome" />
+                    </a>
+                </div>
+                <div class="rellax col-md-6 order-md-1 pt-md-4 pt-lg-5"
+                     data-rellax-percentage="0.5" data-rellax-speed="-0.6" data-disable-parallax-down="md">
+                    <div class="pe-md-4 me-md-2">
+                        <div class="fs-sm text-muted mb-1">Vendido por: @produto.Fornecedor.Nome</div>
+                        <h2 class="h3">@produto.Nome</h2>
+                        <a href="#" class="d-table badge bg-faded-primary text-primary fs-sm mb-3">
+                            @produto.Categoria?.Nome
+                        </a>
+                        <p class="d-md-none d-lg-block pb-3 mb-2 mb-md-3">
+                            @produto.Descricao
+                        </p>
+                        <p class="fs-lg fw-semibold text-primary mb-0 m-lg-2">
+                            @produto.Preco.ToString("C")
+                        </p>
+                        <a class="btn btn-outline-primary" style="width: 160px;"
+                           aria-label="Link do Produto"
+                           asp-area=""
+                           asp-controller="Produtos"
+                           asp-action="Details"
+                           asp-route-produtoid="@produto.Id">
+                            Ver mais
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        index++;
+    }
+</section>
+
+<script>
+    document.getElementById('categoriaDropdown').addEventListener('change', function () {
+        const categoriaId = this.value;
+        const url = categoriaId === "0" ? '/' : `/?categoriaId=${categoriaId}`;
+        window.location.href = url;
+    });
+</script>
+
+<!-- Scripts de Plugins e Animações -->
+@section scripts {
+    <script src="~/assets/vendor/jarallax/dist/jarallax.min.js"></script>
+    <script src="~/assets/vendor/rellax/rellax.min.js"></script>
+}

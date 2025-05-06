@@ -1,0 +1,60 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Registrar";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<div class="d-flex justify-content-center align-items-center vh-50">
+    <div class="col-md-4">
+        <section>
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <p class="text-center pb-3 mb-3">
+                    Crie sua nova conta
+                </p>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Nome" class="form-control" autocomplete="name" aria-required="true" placeholder="Fulano de Tal" />
+                    <label asp-for="Input.Nome">Nome</label>
+                    <span asp-validation-for="Input.Nome" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="nome@exemplo.com" />
+                    <label asp-for="Input.Email">E-mail</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="senha" />
+                    <label asp-for="Input.Password">Senha</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="confirme a senha" />
+                    <label asp-for="Input.ConfirmPassword">Confirme a Senha</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <select asp-for="Input.Role" class="form-select" aria-required="true">
+                        <option value="Consumidor">Consumidor</option>
+                        <option value="Fornecedor">Fornecedor</option>
+                    </select>
+                    <label asp-for="Input.Role" class="control-label"></label>
+                    <span asp-validation-for="Input.Role" class="text-danger"></span>
+                </div>
+                <div>
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registrar</button>
+                </div>
+                <div>
+                    <p>
+                        <a class="btn btn-link btn-lg w-100" id="already-user" asp-page="/Account/Login">Já é usuário? Entrar aqui.</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

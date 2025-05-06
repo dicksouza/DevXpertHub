@@ -1,0 +1,68 @@
+﻿@model DevXpertHub.Web.Models.ProdutoViewModel
+
+@{
+    ViewBag.Title = "Detalhes do Produto";
+}
+
+<!-- Breadcrumb -->
+<nav class="container py-0 my-lg-2" aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+            <a href="/"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Produtos">Produtos</a>
+        </li>
+
+        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+    </ol>
+</nav>
+<hr class="container" />
+<div class="d-flex align-items-center justify-content-center" style="height: 70px;">
+    <h1 class="text-center m-0">@ViewData["Title"]</h1>
+</div>
+<hr class="container" />
+
+<section class="position-relative pt-5 py-lg-5 mt-0 mt-md-0">
+    <div class="position-md-absolute end-0 w-md-50 h-100 me-5">
+        <!-- Imagem do Produto -->
+        <div class="position-md-absolute w-100 h-100 bg-position-center bg-repeat-0 rounded-3"
+             style="background-image: url('/@Model.Imagem'); background-size: contain; background-color: #f8f9fa;">
+            <div class="ratio ratio-1x1"></div>
+        </div>
+    </div>
+
+    <div class="container pt-1 pt-lg-2">
+        <div class="row">
+            <div class="col-lg-5 col-md-6">
+
+                <!-- Detalhes do Produto -->
+                <h2 class="h1 mb-4">@Model.Nome</h2>
+                <p class="pb-3 mb-3">@Model.Descricao</p>
+                <table class="mb-5">
+                    <tbody>
+                        <tr>
+                            <th class="text-dark fw-bold pb-2" scope="row">Categoria</th>
+                            <td class="ps-3 ps-sm-4 pb-2">@Model.Categoria?.Nome</td>
+                        </tr>
+                        <tr>
+                            <th class="text-dark fw-bold pb-2" scope="row">Preço</th>
+                            <td class="ps-3 ps-sm-4 pb-2">@Model.Preco.ToString("C")</td>
+                        </tr>
+                        <tr>
+                            <th class="text-dark fw-bold pb-2" scope="row">Qtde. em estoque: </th>
+                            <td class="ps-3 ps-sm-4 pb-2">@Model.Estoque</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Botão de Ação -->
+                <div class="d-flex">
+                    <a href="/" class="btn btn-primary shadow-primary mt-n2" style="width: 160px;">Voltar para Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<br />

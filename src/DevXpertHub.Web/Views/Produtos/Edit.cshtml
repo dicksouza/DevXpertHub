@@ -1,0 +1,104 @@
+﻿@model DevXpertHub.Web.Models.ProdutoUpdateViewModel
+
+@{
+    ViewData["Title"] = "Editar Produto";
+}
+<!-- Breadcrumb -->
+<nav class="container py-0 my-lg-2" aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+            <a href="/"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Produtos">Produtos</a>
+        </li>
+
+        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+    </ol>
+</nav>
+
+<hr class="container" />
+<div class="d-flex align-items-center justify-content-center" style="height: 70px;">
+    <h1 class="text-center m-0">@ViewData["Title"]</h1>
+</div>
+<hr class="container" />
+
+@await Html.PartialAsync("_MessagesPartial")
+<br />
+<div class="d-flex justify-content-center align-items-center vh-50">
+    <div class="col-md-6">
+        <section>
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="FornecedorId" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="FornecedorId" class="control-label"></label>
+                    <label class="form-control-plaintext">@ViewBag.FornecedorNome</label>
+                    <span asp-validation-for="FornecedorId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Descricao" class="control-label"></label>
+                    <textarea asp-for="Descricao" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Descricao" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ImagemAtual" class="control-label"></label>
+                    <input type="hidden" asp-for="ImagemAtual" />
+                    @if (!string.IsNullOrEmpty(Model.ImagemAtual))
+                    {
+                        <div>
+                            <img src="@Url.Content($"~/{Model.ImagemAtual}")" alt="Imagem atual" style="max-width: 150px; max-height: 150px;" />
+                            <small class="form-text text-muted">Imagem atual</small>
+                        </div>
+                    }
+                    else
+                    {
+                        <small class="form-text text-muted">Nenhuma imagem disponível.</small>
+                    }
+                    <input type="file" asp-for="ImagemNova" class="form-control" style="display: none;" id="ImagemInput" />
+                    <button type="button" class="btn btn-link" onclick="document.getElementById('ImagemInput').click();">Alterar Imagem</button>
+                    <span asp-validation-for="ImagemNova" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Preco" class="control-label"></label>
+                    <input type="number" asp-for="Preco" class="form-control" step="0.01" />
+                    <span asp-validation-for="Preco" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Estoque" class="control-label"></label>
+                    <input asp-for="Estoque" class="form-control" />
+                    <span asp-validation-for="Estoque" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="CategoriaId" class="control-label"></label>
+                    <select asp-for="CategoriaId" class="form-select" asp-items="Model.Categorias"></select>
+                    <span asp-validation-for="CategoriaId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group d-flex justify-content-between">
+                    <input type="submit" value="Salvar" class="btn btn-primary"  style="width: 160px;" />
+                    <a asp-action="Index" class="btn btn-secondary"  style="width: 160px;">Cancelar</a>
+                </div>
+                <br />
+                <br />
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

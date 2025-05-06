@@ -1,0 +1,6 @@
+@DevXpertHub.Api_HostAddress = http://localhost:5208
+
+GET {{DevXpertHub.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

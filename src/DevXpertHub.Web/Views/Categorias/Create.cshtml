@@ -1,0 +1,59 @@
+﻿@model DevXpertHub.Web.Models.CategoriaCreateViewModel
+
+@{
+    ViewData["Title"] = "Nova Categoria";
+}
+
+<!-- Breadcrumb -->
+<nav class="container py-0 my-lg-2" aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+            <a href="/"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Categorias">Categorias</a>
+        </li>
+
+        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+    </ol>
+</nav>
+
+<hr class="container" />
+<div class="d-flex align-items-center justify-content-center" style="height: 70px;">
+    <h1 class="text-center m-0">@ViewData["Title"]</h1>
+</div>
+<hr class="container" />
+
+@await Html.PartialAsync("_MessagesPartial")
+<br />
+<div class="d-flex justify-content-center align-items-center vh-50">
+    <div class="col-md-4">
+        <section>
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Descricao" class="control-label"></label>
+                    <textarea asp-for="Descricao" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Descricao" class="text-danger"></span>
+                </div>
+                <div class="form-group d-flex justify-content-between">
+                    <input type="submit" value="Salvar" class="btn btn-primary"  style="width: 160px;" />
+                    <a asp-action="Index" class="btn btn-secondary"  style="width: 160px;">Cancelar</a>
+                </div>
+                <br />
+                <br />
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

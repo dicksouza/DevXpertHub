@@ -1,0 +1,41 @@
+﻿using DevXpertHub.Core.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace DevXpertHub.Infrastructure.Configurations;
+
+/// <summary>
+/// Define a configuração do Entity Framework Core para a entidade <see cref="Categoria"/>.
+/// Esta classe especifica como a entidade Categoria será mapeada para a tabela correspondente no banco de dados.
+/// </summary>
+public class CategoriaConfiguration : IEntityTypeConfiguration<Categoria>
+{
+    /// <summary>
+    /// Configura as propriedades e os relacionamentos da entidade <see cref="Categoria"/>.
+    /// Este método é chamado pelo Entity Framework Core durante a criação do modelo do banco de dados.
+    /// </summary>
+    /// <param name="builder">O construtor usado para configurar a entidade <see cref="Categoria"/>.</param>
+    public void Configure(EntityTypeBuilder<Categoria> builder)
+    {
+        // Configura a chave primária da tabela Categoria.
+        builder.HasKey(c => c.Id);
+
+        // Configura uma chave única para a coluna Nome.
+        builder.HasIndex(c => c.Nome).IsUnique();
+
+        // Configura a propriedade Id para ser gerada automaticamente pelo banco de dados.
+        builder.Property(e => e.Id)
+            .ValueGeneratedOnAdd();
+
+        // Configura a propriedade Nome:
+        // Define que a coluna Nome é obrigatória e possui um tamanho máximo de 100 caracteres.
+        builder.Property(c => c.Nome)
+            .IsRequired() // Define que a coluna Nome não pode ser nula no banco de dados.
+            .HasMaxLength(100); // Define o tamanho máximo da string.
+
+        // Configura a propriedade Descricao:
+        // Define que a coluna Descricao possui um tamanho máximo de 500 caracteres.
+        builder.Property(c => c.Descricao)
+            .HasMaxLength(500); // Define o tamanho máximo da string.
+    }
+}

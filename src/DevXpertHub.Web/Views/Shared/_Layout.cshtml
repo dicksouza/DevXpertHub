@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="DevXpertHub - Gestão de Mini Loja Virtual">
+    <meta name="keywords" content="loja virtual, gestão, e-commerce, DevXpertHub, produtos, categorias" />
+    <meta name="author" content="Roberio Pinto Souza">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DevXpertHub</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DevXpertHub.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/vendor/boxicons/css/boxicons.min.css" asp-append-version="true">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="container">
+        <div class="container px-0">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <a class="navbar-brand p-3" asp-area="" asp-controller="Home" asp-action="Index" Title="Página inicial - DevXpertHub">
+                    <img src="~/img/LogoDevXpertHub.jpg" alt="DevXpertHub Logo" style="height: 80px;" data-bs-toggle="tooltip" />
+                </a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    @if (User != null && User.Identity != null &&
+                    User.Identity.IsAuthenticated &&
+                    (User.IsInRole("Fornecedor") || User.IsInRole("Admin")))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Categorias" asp-action="Index">Categorias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Produtos" asp-action="Index">Produtos</a>
+                        </li>
+                    }
+                </ul>
+                <partial name="_LoginPartial" />
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="container"
+        <div class="w-100 align-self-end">
+            <p class="nav d-block fs-xs text-center text-xl-start pb-2 mb-0">
+                &copy; @DateTime.Now.ToString("yyyy") - Todos os direitos reservados. Desenvolvido por Roberio Pinto Souza
+                para o
+                <a class="nav-link d-inline-block p-0" href="https://desenvolvedor.io/mba" target="_blank" rel="noopener">MBA DevXpert Full Stack .NET da Desenvolvedor.io</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

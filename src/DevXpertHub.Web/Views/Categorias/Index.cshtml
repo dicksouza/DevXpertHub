@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DevXpertHub.Web.Models.CategoriaReadViewModel>
+
+@{
+    ViewData["Title"] = "Lista de Categorias";
+}
+
+<!-- Breadcrumb -->
+<nav class="container py-0 my-lg-2" aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+            <a href="/"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+    </ol>
+</nav>
+
+<hr class="container" />
+<div class="d-flex align-items-center justify-content-center" style="height: 70px;">
+    <h1 class="text-center m-0">@ViewData["Title"]</h1>
+</div>
+<hr class="container" />
+
+@await Html.PartialAsync("_MessagesPartial")
+
+<p>
+    @if (User != null && User.Identity != null &&
+    User.Identity.IsAuthenticated &&
+    (User.IsInRole("Fornecedor") || User.IsInRole("Admin")))
+    {
+        <br />
+        <a asp-action="Create" class="btn btn-primary" style="width: 160px;">Nova categoria</a>
+    }
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Nome)</th>
+            <th>@Html.DisplayNameFor(model => model.Descricao)</th>
+            @if (User != null && User.Identity != null &&
+            User.Identity.IsAuthenticated &&
+            (User.IsInRole("Fornecedor") || User.IsInRole("Admin")))
+            {
+                <th>Ações</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
+                @if (User != null && User.Identity != null &&
+               User.Identity.IsAuthenticated &&
+               (User.IsInRole("Fornecedor") || User.IsInRole("Admin")))
+                {
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<br />

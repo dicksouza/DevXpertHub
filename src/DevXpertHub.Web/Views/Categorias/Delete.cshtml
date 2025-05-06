@@ -1,0 +1,71 @@
+﻿@model DevXpertHub.Web.Models.CategoriaReadViewModel
+
+@{
+    ViewData["Title"] = "Excluir Categoria";
+}
+
+<!-- Breadcrumb -->
+<nav class="container py-0 my-lg-2" aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+            <a href="/"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Categorias">Categorias</a>
+        </li>
+
+        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+    </ol>
+</nav>
+
+<hr class="container" />
+<div class="d-flex align-items-center justify-content-center" style="height: 70px;">
+    <h1 class="text-center m-0">@ViewData["Title"]</h1>
+</div>
+<hr class="container" />
+@await Html.PartialAsync("_MessagesPartial")
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container">
+    <br />
+    <h5 class="text-center">Tem certeza de que deseja excluir este produto?</h5>
+    <br />
+
+    <div class="d-flex justify-content-center align-items-center vh-50">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Descricao)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Descricao)
+            </dd>
+        </dl>
+    </div>
+    <section>
+        <form class="d-flex flex-column align-items-center vh-50" asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <input type="submit" value="Excluir" class="btn btn-danger"  style="width: 160px;"  />
+                <a asp-action="Index" class="btn btn-secondary"  style="width: 160px;">Cancelar</a>
+            </div>
+            <br />
+            <br />
+        </form>
+    </section>
+</div>
