@@ -114,7 +114,7 @@ dotnet ef database update -p src/DevXpertHub.Infrastructure -s src/DevXpertHub.W
     cd src/DevXpertHub.Web/
     dotnet run
     ```
-  - Acesse a aplicação em: https://localhost:7043
+  - Acesse a aplicação em: https://localhost:7032
 
 4. **Executar a API:**
 
@@ -122,7 +122,7 @@ dotnet ef database update -p src/DevXpertHub.Infrastructure -s src/DevXpertHub.W
    cd src/DevXpertHub.Api/
    dotnet run
    ```
-   - Acesse a documentação da API em: https://localhost:7039/swagger
+   - Acesse a documentação da API em: https://localhost:7267/swagger
 
 ## **7. Instruções de Configuração**
 
@@ -133,7 +133,7 @@ dotnet ef database update -p src/DevXpertHub.Infrastructure -s src/DevXpertHub.W
 
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em:
 
-http://localhost:5001/swagger
+http://localhost:7267/swagger
 
 ## **9. Avaliação**
 
