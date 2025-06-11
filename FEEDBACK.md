@@ -1,66 +1,95 @@
 # Feedback - Avaliação Geral
 
 ## Front End
+
 ### Navegação
   * Pontos positivos:
-    - O projeto possui views e rotas definidas para as funcionalidades no projeto MVC.
-    - Implementação de controllers e views para as operações principais.
+    - Projeto MVC com navegação bem estruturada e funcionalidades operacionais de CRUD.
+
+  * Pontos negativos:
+    - Nenhum.
 
 ### Design
-    - Será avaliado na entrega final
+  - Interface clara e coesa com a proposta administrativa da aplicação.
 
 ### Funcionalidade
   * Pontos positivos:
-    - Implementações básicas de CRUD para produtos e categorias no front-end MVC.
+    - CRUD completo nas camadas MVC e API.
+    - Identity configurado com autenticação funcional nas duas camadas.
+    - Criação do fornecedor associada ao usuário do Identity, com ID compartilhado.
+    - Uso de SQLite com seed de dados e migrations automáticas funcionando corretamente.
+    - Modelagem com base em conceitos de DDD bem aplicada.
+
+  * Pontos negativos:
+    - Troca do nome `Vendedor` por `Fornecedor`, o que compromete a aderência ao escopo proposto.
+    - Não há verificação de domínio para garantir que o produto pertence ao fornecedor logado antes da edição.
+    - Arquitetura levemente excessiva: `Core` e `Infrastructure` poderiam estar unificadas em um único `Core`.
 
 ## Back End
+
 ### Arquitetura
   * Pontos positivos:
-    - Separação clara entre projetos MVC e API.
+    - Boa separação entre camadas: API, MVC, Core e Infrastructure.
+    - Implementação de princípios como DDD, abstrações e extensão de serviços.
 
   * Pontos negativos:
-    - Arquitetura excessivamente complexa com mais camadas do que o necessário (Core, Domain, Services, Infrastructure).
-    - As camadas Core, Domain e Services possuem responsabilidades sobrepostas que poderiam estar unificadas.
-    - Recomenda-se "Deixar o arsenal técnico para desafios que exigem complexidade".
-    - Para o escopo do projeto, uma única camada Core unificando business/data seria suficiente.
-    - Entenda que errar na mão da complexidade é tão grave quanto ser simplório demais
+    - Arquitetura sofisticada demais para o nível de complexidade do desafio, tornando o projeto mais verboso do que necessário.
+    - Duplicação da lógica de seed (`DbSeedData`) nas camadas API e MVC.
 
 ### Funcionalidade
   * Pontos positivos:
-    - Implementação de migrations automáticas e seed de dados no projeto MVC.
-    - Uso do Entity Framework Core.
+    - Funcionalidade de autenticação e domínio geral está presente.
+    - As operações CRUD são completas e bem implementadas.
 
   * Pontos negativos:
-    - Projeto API não implementa migrations ou seed de dados.
-    - Falta a implementação da criação automática do vendedor durante o registro do Identity.
-    - Excesso de complexidade em funcionalidades não essenciais enquanto requisitos básicos não foram atendidos.
+    - Falta de validação de domínio na edição de produtos (propriedade pelo usuário).
 
 ### Modelagem
   * Pontos positivos:
-    - Uso do Entity Framework Core para acesso a dados.
+    - Modelos consistentes e alinhados com boas práticas.
+    - Separação de entidades, DTOs, comandos e respostas organizada.
 
   * Pontos negativos:
-    - Modelagem excessivamente complexa distribuída em múltiplas camadas sem necessidade.
-    - As responsabilidades poderiam estar centralizadas em uma única camada Core.
-    - Exagero na modelagem que deveria ser simples e anêmica.
+    - Uso do nome `Fornecedor` em vez de `Vendedor`.
 
 ## Projeto
+
 ### Organização
   * Pontos positivos:
-    - Uso da pasta `src` na raiz.
-    - Arquivo de solução (`.sln`) presente.
-    - Separação em projetos distintos.
+    - Uso de `src`, `.sln` na raiz, documentação presente, organização dos arquivos é clara.
+    - Arquivos de extensão, configuração e utilitários organizados.
+
+  * Pontos negativos:
+    - Nenhum relevante além da duplicação do seed.
 
 ### Documentação
   * Pontos positivos:
-    - Repositório com `README.md` presente e bem documentado.
-    - Arquivo `FEEDBACK.md` presente.
-    - Documentação via Swagger para API.
+    - Documentação (`README.md`, `FEEDBACK.md`) presente e completa.
+    - Swagger configurado corretamente na API.
+
+  * Pontos negativos:
+    - Nenhum.
 
 ### Instalação
   * Pontos positivos:
-    - Implementação do SQLite para ambiente de desenvolvimento.
-    - Migrations automáticas e seed de dados no projeto MVC.
+    - SQLite funcional com migrations e seed automáticos.
+    - Setup executável localmente de forma prática.
 
   * Pontos negativos:
-    - Ausência de migrations e seed de dados no projeto API.
+    - Seed duplicado pode causar manutenção complicada.
+
+---
+
+# 📊 Matriz de Avaliação de Projetos
+
+| **Critério**                   | **Peso** | **Nota** | **Resultado Ponderado**                  |
+|-------------------------------|----------|----------|------------------------------------------|
+| **Funcionalidade**            | 30%      | 9.5      | 2,85                                     |
+| **Qualidade do Código**       | 20%      | 10       | 2,0                                      |
+| **Eficiência e Desempenho**   | 20%      | 9.5      | 1,9                                      |
+| **Inovação e Diferenciais**   | 10%      | 10       | 1,0                                      |
+| **Documentação e Organização**| 10%      | 10       | 1,0                                      |
+| **Resolução de Feedbacks**    | 10%      | 10       | 1,0                                      |
+| **Total**                     | 100%     | -        | **9,75**                                 |
+
+## 🎯 **Nota Final: 9,75 / 10**
